@@ -622,4 +622,3 @@ int get_fix( result, mode, pre_name, size_bytes, size, assign,
 
     return( fix_count );
 }
-

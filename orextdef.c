@@ -67,4 +67,3 @@ printf("%s\n", name );
     cksum = get_byte();
     cksum = cksum;
 }
-

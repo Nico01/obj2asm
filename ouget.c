@@ -87,4 +87,3 @@ int get_index( data )
         return( 1 );
     }
 }
-

@@ -18,5 +18,3 @@ void theadr()
     }
     out_newline();
 }
-
-

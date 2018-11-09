@@ -47,4 +47,3 @@ void linnum( word length)
   cksum = get_byte();
   cksum = cksum;
 }
-

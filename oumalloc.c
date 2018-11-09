@@ -14,4 +14,3 @@ void *o_malloc( word size )
     }
     return( result );
 }
-

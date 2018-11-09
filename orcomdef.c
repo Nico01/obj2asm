@@ -66,5 +66,3 @@ void comdef( length, scope )
     cksum = get_byte();
     cksum = cksum;
 }
-
-

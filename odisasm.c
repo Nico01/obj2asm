@@ -1962,4 +1962,3 @@ int esc( byte, text, class )
     size = size;
     return( 2+additional );
 }
-

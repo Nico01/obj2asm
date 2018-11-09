@@ -109,5 +109,3 @@ void esc_special( opcode, operand, esc_byte, reg )
         strcat( opcode, "p" );
     }
 }
-
-

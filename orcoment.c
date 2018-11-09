@@ -403,4 +403,3 @@ void coment( word length)
   if (comment!=junk)
     free(comment);
 }
-

@@ -199,4 +199,3 @@ printf("Length of segment = %04X\n",length );
     max_len = max_len;
     grp_off = grp_off;
 }
-

@@ -168,5 +168,3 @@ NODE_T *insert( void *data, NODE_T *root_node, int (*cmp_routine)(void*,void*))
     /*  Return a pointer to the node inserted */
     return ( insert_node );
 }
-
-

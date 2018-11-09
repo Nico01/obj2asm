@@ -50,4 +50,3 @@ void *find( void *data, NODE_T *root_node, int(*cmp_routine)(void*,void*), NODE_
 
     return( NULL );
 }
-

@@ -48,4 +48,3 @@ void lnames( length )
     cksum = get_byte();
     cksum = cksum;
 }
-

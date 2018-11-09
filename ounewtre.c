@@ -18,5 +18,3 @@ NODE_T *new_tree( void *data_ptr, int dup_allowed )
     tree->thread[RIGHT] = TRUE;
     return( tree );
 }
-
-

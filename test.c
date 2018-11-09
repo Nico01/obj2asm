@@ -21,4 +21,3 @@ static word ui_uilpsz(word _word, char* _charstar)
   _charstar = _charstar;
   return(_word);
 }
-

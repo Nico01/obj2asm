@@ -43,4 +43,3 @@ void sex_insert( seg_index, ext_rec)
     insert( (char *)sex_rec, sex_tree, TC sex_compare );
 
 }
-

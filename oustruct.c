@@ -42,4 +42,3 @@ STRUC_T *struc_insert( form )
     struc_node = insert( (char *)struc_rec, struc_tree, TC struc_compare );
     return( (STRUC_T *)struc_node->data );
 }
-

@@ -130,4 +130,3 @@ void init_trees()
     hint_root->length    = 0L;
     hint_tree = new_tree( (char *)hint_root, FALSE );
 }
-
