@@ -1,0 +1,30 @@
+        Hi there all!
+
+        This zip file contains my additions to the OBJ2ASM program, which I
+originally obtained from "garbo.uwasa.fi".  The most noticeable additions are
+inclusion of line number information, limited understanding of debug
+information (as supplied by Turbo C) and Microsoft. Areas which you should
+watch out for are interpretation of C++ debug info, incompatible stuff from
+Microsoft C, both of which are known to crash obj2asm irretreivably.  Certain
+Turbo C debug record also kill obj2asm.
+
+        I've not done *any* coding on this since early 1992 and I don't think
+I'll be doing much in the forseeable future.  Any bugs are unfortunate.
+
+The original program was written by:
+
+              Robert F. Day
+              19906 Filbert Dr.
+              Bothell, WA 98012
+              (206) 481-8431
+
+Your's objectively,                    :-)
+
+Bob.
+
+  +-----------------------------------------------------------------------+
+  |   Robin Hilliard.     Tel: [+353] 64-54014    Fax: Dead               |
+  |    The Software Loft, Lough Guitane, Killarney, Co. Kerry, Ireland    |
+  |   Internet: softloft@bureau.ucc.ie         Compu$erve: 100042, 1237   |
+  +----[ Tu es petra, et portae Inferi non praevalebunt adversus Te. ]----+
+
