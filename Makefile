@@ -1,5 +1,5 @@
 CC = clang
-CFLAGS = -Wall -Wextra -g
+CFLAGS = -Wall #-Wextra -g
 
 SOURCES  := $(wildcard *.c)
 INCLUDES := $(wildcard *.h)

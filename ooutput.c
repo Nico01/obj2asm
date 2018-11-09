@@ -115,9 +115,9 @@ void out_endline()
 
 void out_newline()
 {
-/*    if ( tab_at != 0 ) {          /* Finish off previous line if needed */
-        out_endline();
-    } */
+// /*    if ( tab_at != 0 ) {          /* Finish off previous line if needed */
+//        out_endline();
+//    } */
     out_endline();
 }
 

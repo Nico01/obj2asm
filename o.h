@@ -1,3 +1,12 @@
+
+
+// TODO horrible hack
+#include <strings.h>
+#define strnicmp strncasecmp
+#define stricmp strcasecmp
+// TODO end
+
+
 typedef unsigned char uchar;
 typedef unsigned int word;
 typedef unsigned long int dword;
