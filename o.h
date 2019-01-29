@@ -1,6 +1,8 @@
 #ifndef OBJ_O_H
 #define OBJ_O_H
 
+#include "utils.h"
+
 // TODO horrible hack
 #include <strings.h>
 #define strnicmp strncasecmp
@@ -423,7 +425,6 @@ void out_directive( char * );
 void out_line( char *, char *, char *, char * );
 char *out_hexize( dword, char *, int );
 
-void fmt_error( char * );
 
 NODE_T *new_tree( void *, int );
 NODE_T *start( NODE_T *, int );
@@ -431,7 +432,6 @@ NODE_T *traverse( NODE_T *, int );
 NODE_T *insert( void *, NODE_T *, int(*)(void *, void *) );
 void *find( void *, NODE_T *, int(*)(), NODE_T ** );
 char *search( char *, NODE_T *, int(*)() );
-void *o_malloc( word );
 void tab_seek( int );
 
 int find_member( char *, STRUC_T *, long * );
