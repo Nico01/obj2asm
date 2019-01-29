@@ -2,6 +2,7 @@
 #define OBJ_O_H
 
 #include "utils.h"
+#include "omf_record.h"
 
 // TODO horrible hack
 #include <strings.h>
@@ -362,19 +363,6 @@ void ext_insert( char *, int, int, dword, word, int );
 void dat_insert( int, dword, long, int, int, int );
 STRUC_T *struc_insert( char * );
 
-void theadr( void );
-void lnames( word );
-void grpdef( word );
-void segdef( void );
-void pubdef( word, int );
-void extdef( word, int );
-void ledata( word, int );
-void lidata( word, int );
-void linnum( word);
-void fixupp( word, int );
-void coment( word );
-void comdef( word, int );
-void modend( word, int );
 void typdef( word );
 void pubrpt( void );
 void extrpt( void );

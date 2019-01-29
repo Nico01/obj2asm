@@ -4,9 +4,7 @@
 extern int data_seg_idx;
 extern dword data_offset;
 
-void lidata( length, extension )
-    word    length;
-    int             extension;
+void lidata(size_t length, int extension)
 {
     SEG_T           seg_search;
     SEG_T           *seg;

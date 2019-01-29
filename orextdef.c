@@ -45,9 +45,7 @@ void ext_insert( this_name, com_ext, var_type, count, size, scope )
     insert( (char *)extern_rec, extern_tree, TC ext_compare );
 }
 
-void extdef( length, scope )
-    word length;
-    int          scope;
+void extdef(size_t length, int scope)
 {
     char    name[41];
     int     typ_idx;

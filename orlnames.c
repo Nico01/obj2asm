@@ -34,8 +34,7 @@ void name_insert( this_name )
     insert( (char *)name_rec, name_tree, TC name_compare );
 }
 
-void lnames( length )
-    word length;
+void lnames(size_t length)
 {
     char    mod_name[41];
     char    cksum;

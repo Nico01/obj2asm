@@ -18,7 +18,7 @@ int linnum_compare(LINE_T *btreeline, LINE_T*line)
 }
 
 
-void linnum( word length)
+void linnum(size_t length)
 {
   char            *record;
   char            text[80];

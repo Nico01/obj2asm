@@ -155,9 +155,7 @@ int decode_fixup( relate, size, form, offset, extension )
 }
 
 
-void fixupp( length, extension )
-    word    length;
-    int             extension;
+void fixupp(size_t length, int extension)
 {
     uchar   type;           /* First byte of a FIXUPP packet */
     int             kind;

@@ -53,9 +53,7 @@ void dat_insert( seg_idx, offset, file_pos, length, extended, type )
     insert( (char *)data_rec, data_tree, TC dat_compare );
 }
 
-void ledata( length, extension )
-    word    length;
-    int             extension;
+void ledata(size_t length, int extension)
 {
     SEG_T           seg_search;
     SEG_T           *seg;

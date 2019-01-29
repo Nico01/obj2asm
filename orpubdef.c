@@ -48,9 +48,7 @@ NODE_T *pub_insert( seg_idx, offset, this_name, domain, scope )
     return ( insert( (char *)public_rec, public_tree, TC pub_compare ) );
 }
 
-void pubdef( length, scope )
-    word    length;
-    int             scope;
+void pubdef(size_t length, int scope)
 {
     int             grp_idx;
     int             seg_idx;

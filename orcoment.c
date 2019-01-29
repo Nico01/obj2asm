@@ -77,7 +77,7 @@ int scope_compare(SCOPE_T *btreescope, SCOPE_T *scope)
 
 
 
-void coment( word length)
+void coment(size_t length)
 {
   char            junk[3];
   char            *comment;

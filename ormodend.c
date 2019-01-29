@@ -4,9 +4,7 @@
 extern int data_seg_idx;
 extern dword data_offset;
 
-void modend( length, extension )
-    word    length;
-    int             extension;
+void modend(size_t length, int extension)
 {
     int             type;
 

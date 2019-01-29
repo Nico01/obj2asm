@@ -45,8 +45,7 @@ void grp_insert( name_idx )
     insert( (char *)group_rec, group_tree, TC grp_compare );
 }
 
-void grpdef( length )
-    word    length;
+void grpdef(size_t length)
 {
     NAME_T  name_search;
     NAME_T  *group;

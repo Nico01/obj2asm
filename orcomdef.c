@@ -33,9 +33,7 @@ word get_val( value )
     return( result );
 }
 
-void comdef( length, scope )
-    word    length;
-    int             scope;
+void comdef(size_t length, int scope)
 {
     char            name[41];
     int             typ_idx;
