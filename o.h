@@ -1,4 +1,5 @@
-
+#ifndef OBJ_O_H
+#define OBJ_O_H
 
 // TODO horrible hack
 #include <strings.h>
@@ -7,13 +8,15 @@
 // TODO end
 
 
-typedef unsigned char uchar;
-typedef unsigned int word;
-typedef unsigned long int dword;
-typedef signed long int dint;
+typedef unsigned char uchar;     // TODO uint8_t
+typedef unsigned int word;       // TODO uint16_t
+typedef unsigned long int dword; // TODO uint32_t
+typedef signed long int dint;    // TODO int32_t
 
+// TODO use <stdbool.h>
 #define FALSE   (0==1)
 #define TRUE    (!FALSE)
+
 #define FULL    (EOF-1)
 
 #define L_SET   0                       /* Seek methods for fseek() */
@@ -482,3 +485,5 @@ int extra        ( uchar, char *, int );
 
 
 #define TC (int(*)(void*,void*)) /* *; */
+
+#endif // OBJ_O_H
