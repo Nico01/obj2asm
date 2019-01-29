@@ -2,7 +2,6 @@
 ** OBJASM - Utility to create .ASM files out of .OBJ files.
 **          Options are:
 **
-**              -r = Create RASM86 compatible output (.A86 instead of .ASM)
 **              -4 = Make compatible with MASM v4.0 (no retf)
 **              -a = Add labels for un-named data references
 **              -h = Hex output as comments
@@ -80,7 +79,6 @@
 /*
 ** Local Prototypes
 */
-int main( int, char *[] );
 
 FILE    *o_file;                    /* .OBJ file that we are processing */
 long    o_position;                 /* Position in file of current data */
@@ -147,7 +145,6 @@ int     tab_offset = 0;             /* Current tab offset, 0 = none */
 
 int     compatibility = 0;          /* 0 = MASM 5.0+ (Microsoft) */
                                     /* 1 = MASM 4.0  (Microsoft) */
-                                    /* 2 = RASM86 (Digital Research) */
 
 int     add_labels = FALSE;         /* No, treat as .obj translator       */
                                     /* Otherwise, treat as .asm creator   */  
@@ -172,9 +169,7 @@ char    extra_filename[65] = {'\0'};/* Additional information file */
 
 
 
-int main( argc, argv )
-    int     argc;
-    char    *argv[];
+int main(int argc, char *argv[])
 {
     char            *argp;
     int             name_arg;
@@ -193,6 +188,7 @@ int main( argc, argv )
     argi = 1;
     name_arg = 0;
     i486 = FALSE;
+
     while ( argi < argc ) {
         argp = argv[argi];
         if ( *argp++ == '-' ) {
@@ -203,9 +199,6 @@ int main( argc, argv )
                         break;
                     case '4':
                         compatibility = 1;
-                        break;
-                    case 'r':
-                        compatibility = 2;
                         break;
                     case 'h':
                         hex_output = TRUE;
@@ -276,7 +269,6 @@ int main( argc, argv )
         fprintf( stderr, "           -4 Make MASM 4.0 compatible (no RETF)\n" );
         fprintf( stderr, "           -a Add labels for un-named data references\n");
         fprintf( stderr, "           -h Hex output in comments\n");
-        fprintf( stderr, "           -r Make RASM86 compatible\n" );
         fprintf( stderr, "           -v Include 486 instructions\n" );
         fprintf( stderr, "          -c# Minimum string size in a code segment (default=40)\n");
         fprintf( stderr, "          -s# Mimimum string size in a data segment (default=3)\n");
@@ -317,20 +309,6 @@ int main( argc, argv )
             ** Make far return only a comment
             */
             instr[0xCB].text = "ret\t; (retf)";
-            break;
-        case 2:             /* RASM86 */
-            /*
-            ** Make xlat a xlat bx
-            */
-            instr[0xD7].text = "xlat\tbx";
-            /*
-            ** Make short jmp a jmps
-            */
-            instr[0xEB].text = "jmps";
-            /*
-            ** Make far jmp a jmpf
-            */
-            op_grp[4][5] = "jmpf";
             break;
     }
 

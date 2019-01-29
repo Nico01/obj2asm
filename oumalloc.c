@@ -1,5 +1,4 @@
 #include <stdio.h>
-//#include <alloc.h>
 #include <stdlib.h>
 #include "o.h"
 
