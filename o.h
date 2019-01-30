@@ -2,6 +2,7 @@
 #define OBJ_O_H
 
 #include "utils.h"
+#include "ouget.h"
 #include "omf_record.h"
 
 // TODO horrible hack
@@ -384,14 +385,6 @@ int reg_size_to_type( int );
 int type_to_size( int );
 char *type_to_text( int );
 char *size_to_opcode( int, int * );
-
-uchar get_byte( void );
-int get_int( void );
-word get_word( void );
-dword get_long( void );
-void get_str( int, char * );
-int get_name( char * );
-int get_index( int * );
 
 void empty_string( int );
 

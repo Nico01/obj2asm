@@ -340,7 +340,8 @@ int main(int argc, char *argv[])
         if ( rec_type == EOF ) {
             at_eof = TRUE;
         } else {
-            rec_length = getw( o_file );
+            //size_t rec_length = getw( o_file );
+            fread(&rec_length, 1, 2, o_file);
 
             o_position = position + 3;      /* (1 rec_type) + (2 rec_length) */
 

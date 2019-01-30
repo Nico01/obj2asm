@@ -1,89 +1,76 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "ouget.h"
 #include "o.h"
 
-uchar get_byte()
+uint8_t get_byte(void)
 {
-    int     ch;
+    int ch = fgetc(o_file);
 
-    ch = fgetc( o_file );
-    if( ch == EOF ) {
-        fprintf(stderr, "%s: Premature end of file\n");
+    if (ch == EOF) {
+        fprintf(stderr, "Premature end of input file\n");
         exit(3);
     }
-    return( (uchar)ch );
+
+    return ch;
 }
 
-int get_int()
+int16_t get_int(void)
 {
-    int    ch;
-
-    ch = get_byte();
+    int ch = get_byte();
     ch += get_byte() << 8;
 
-    return( ch );
+    return ch;
 }
 
-word get_word()
+uint16_t get_word(void)
 {
-    word    ch;
-
-    ch = get_byte();
+    uint16_t ch = get_byte();
     ch += get_byte() << 8;
 
-    return( ch );
+    return ch;
 }
 
-dword get_long()
+uint32_t get_long(void)
 {
-    dword   ch;
-
-    ch = get_byte();
+    uint32_t ch = get_byte();
     ch += get_byte() << 8;
     ch += get_byte() << 16;
     ch += get_byte() << 24;
-    return( ch );
+    return ch;
 }
 
-void get_str( length, dest_string )
-    int     length;
-    char    *dest_string;
+void get_str(size_t length, char *dest_string)
 {
-    int     count;
+    size_t count = length;
 
-    count = length;
-
-    while( count ) {
-      *dest_string++ = get_byte();
-      --count;
+    while (count) {
+        *dest_string++ = get_byte();
+        --count;
     }
+
     *dest_string = '\0';
 }
 
-
-int get_name( dest_string )
-    char    *dest_string;
+size_t get_name(char *dest_string)
 {
-    int     length;
+    size_t length = get_byte();
+    get_str(length, dest_string);
 
-    length = get_byte();
-    get_str( length, dest_string );
-
-    return( length+1 );
+    return length + 1;
 }
 
-int get_index( data )
-    int     *data;
+int16_t get_index(int *data)
 {
-    word ch;
+    uint16_t ch = get_byte();
 
-    ch = get_byte();
-    if ( ch > 0x7F ) {
+    if (ch > 0x7F) {
         ch = ((ch & 0x7F) << 8) + get_byte();
         *data = ch;
-        return( 2 );
-    } else {
+        return 2;
+    }
+    else {
         *data = ch;
-        return( 1 );
+        return 1;
     }
 }
