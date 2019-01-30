@@ -23,11 +23,11 @@ int do_mod_rm( char *, uchar, uchar, int, int, int );
 int byte_immed( char *, int, int );
 int word_immed( char *, int );
 
-char    *regs[4][8] = {
-      "al",  "cl",  "dl",  "bl",  "ah",  "ch",  "dh",  "bh",
-      "ax",  "cx",  "dx",  "bx",  "sp",  "bp" , "si",  "di",
-     "eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi",
-      "??",  "??",  "??",  "??",  "??",  "??",  "??",  "??"
+char *regs[4][8] = {
+    { "al",  "cl",  "dl",  "bl",  "ah",  "ch",  "dh",  "bh" },
+    { "ax",  "cx",  "dx",  "bx",  "sp",  "bp" , "si",  "di" },
+    { "eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi" },
+    { "??",  "??",  "??",  "??",  "??",  "??",  "??",  "??" }
 };
 
 char    *sregs [] = { "es" , "cs" , "ss" , "ds" , "fs" , "gs"  };
@@ -45,17 +45,17 @@ char    *addr_386m[] = {   "[eax",   "[ecx",   "[edx",   "[ebx",
 
 char    *sib_scale[] = {  "", "*2", "*4", "*8" };
 
-char    *op_grp[10][8] = {
-     "add",   "or",  "adc",  "sbb",  "and",  "sub",  "xor",  "cmp",
-     "rol",  "ror",  "rcl",  "rcr",  "shl",  "shr",     "",  "sar",
-    "test",     "",  "not",  "neg",  "mul", "imul",  "div", "idiv",
-     "inc",  "dec",     "",     "",     "",     "",     "",     "",
-     "inc",  "dec", "call", "call",  "jmp",  "jmp", "push",     "",
-    "sldt",  "str", "lldt",  "ltr", "verr", "verw",     "",     "",
-    "sgdt", "sidt", "lgdt", "lidt", "smsw",     "", "lmsw",     "",
-        "",     "",     "",     "",   "bt",  "bts",  "btr",  "btc",
-     "pop",     "",     "",     "",     "",     "",     "",     "",
-     "mov",     "",     "",     "",     "",     "",     "",     ""
+char *op_grp[10][8] = {
+    { "add",   "or",  "adc",  "sbb",  "and",  "sub",  "xor",  "cmp" },
+    { "rol",  "ror",  "rcl",  "rcr",  "shl",  "shr",     "",  "sar" },
+    { "test",     "",  "not",  "neg",  "mul", "imul",  "div", "idiv" },
+    { "inc",  "dec",     "",     "",     "",     "",     "",     "" },
+    { "inc",  "dec", "call", "call",  "jmp",  "jmp", "push",     "" },
+    { "sldt",  "str", "lldt",  "ltr", "verr", "verw",     "",     "" },
+    { "sgdt", "sidt", "lgdt", "lidt", "smsw",     "", "lmsw",     "" },
+    {    "",     "",     "",     "",   "bt",  "bts",  "btr",  "btc" },
+    { "pop",     "",     "",     "",     "",     "",     "",     "" },
+    { "mov",     "",     "",     "",     "",     "",     "",     "" }
 };
 
 char    *sz_text[] = { "byte ptr ", "word ptr ", "dword ptr ",
@@ -86,47 +86,47 @@ struct modrm_s {
 ** instruction table indexes these entries with it's mod_rm_type field.
 */
 MODRM_CLASS modrm_class[] = {
-    0,  0,  1,  0,  FALSE,  UNKNOWN,    /*  0 Math instructions (byte) M,reg */
-    0,  1,  1,  0,  FALSE,  UNKNOWN,    /*  1 Math instructions (word) M,reg (and ARPL) */
-    1,  0,  1,  0,  FALSE,  UNKNOWN,    /*  2 Math instructions (byte) reg,M */
-    1,  1,  1,  0,  FALSE,  UNKNOWN,    /*  3 Math instructions (word) reg,M */
-    0,  0,  5,  1,  TRUE,   UNKNOWN,    /*  4 Group 1 (math) byte */
-    0,  1,  6,  1,  TRUE,   UNKNOWN,    /*  5 Group 1 (math) word */
-    0,  1,  7,  1,  TRUE,   UNKNOWN,    /*  6 Group 1 (math) signed byte */
-    0,  1,  2,  0,  TRUE,   UNKNOWN,    /*  7 Segment register unloading */
-    1,  1,  2,  0,  TRUE,   UNKNOWN,    /*  8 Segment register loading */
-    1,  1,  1,  0,  FALSE,  UNKNOWN,    /*  9 LEA instruction */
-    2,  1,  0,  9,  FALSE,  UNKNOWN,    /* 10 POP mod 0 r/m instruction */
-    0,  0,  5,  2,  FALSE,  UNKNOWN,    /* 11 Group 2 (rotates) byte */
-    0,  1,  5,  2,  FALSE,  UNKNOWN,    /* 12 Group 2 (rotates) word */
-    0,  0,  3,  2,  TRUE,   UNKNOWN,    /* 13 Group 2 (rotates) byte by 1 */
-    0,  1,  3,  2,  TRUE,   UNKNOWN,    /* 14 Group 2 (rotates) word by 1 */
-    0,  0,  4,  2,  TRUE,   UNKNOWN,    /* 15 Group 2 (rotates) byte by CL */
-    0,  1,  4,  2,  TRUE,   UNKNOWN,    /* 16 Group 2 (rotates) word by CL */
-    1,  2,  1,  0,  FALSE,  UNKNOWN,    /* 17 LES,LDS,BOUND,LSS,LFS,LGS */
-    0,  0,  5, 10,  TRUE,   UNKNOWN,    /* 18 Move immediate (byte) */
-    0,  1,  6, 10,  TRUE,   UNKNOWN,    /* 19 Move immediate (word) */
-    2,  0,  0,  3,  FALSE,  UNKNOWN,    /* 20 Group 3 (special) byte */
-    2,  1,  0,  3,  FALSE,  UNKNOWN,    /* 21 Group 3 (special) word */
-    2,  0,  0,  4,  TRUE,   UNKNOWN,    /* 22 Group 4 (inc/dec) byte */
-    2,  1,  0,  5,  FALSE,  UNKNOWN,    /* 23 Group 5 (special) word/dword */
-    3,  1,  8,  0,  FALSE,  UNKNOWN,    /* 24 IMUL (3 parms [reg,mem,immed word]) */
-    3,  1,  9,  0,  FALSE,  UNKNOWN,    /* 25 IMUL (3 parms [reg,mem,immed signed byte]) */
-    2,  1,  0,  6,  FALSE,  UNKNOWN,    /* 26 Group 6 (special 286/386 instructions) */
-    2,  3,  0,  7,  TRUE,   FWORD_PTR,  /* 27 Group 7 (special 286/386 instructions) */
-    1,  1,  1,  0,  TRUE,   UNKNOWN,    /* 28 LAR,LSL reg,M (word) */
-    0,  0,  5,  8,  TRUE,   BYTE_PTR,   /* 29 Group 8 (386-bit) byte */
-    2,  0,  0,  0,  TRUE,   BYTE_PTR,   /* 30 386 Set cc Instructions */
-    0,  2, 10,  0,  FALSE,  UNKNOWN,    /* 31 386 Mov r32,crX */
-    1,  2, 10,  0,  FALSE,  UNKNOWN,    /* 32 386 Mov crX,r32 */
-    0,  2, 11,  0,  FALSE,  UNKNOWN,    /* 33 386 Mov r32,drX */
-    1,  2, 11,  0,  FALSE,  UNKNOWN,    /* 34 386 Mov drX,r32 */
-    0,  2, 12,  0,  FALSE,  UNKNOWN,    /* 35 386 Mov r32,trX */
-    1,  2, 12,  0,  FALSE,  UNKNOWN,    /* 36 386 Mov trX,r32 */
-    1,  1,  1,  0,  TRUE,   BYTE_PTR,   /* 37 386 Movsx, Movzx */
-    1,  1,  1,  0,  TRUE,   WORD_PTR,   /* 38 386 Movsx, Movzx */
-    4,  1,  9,  0,  TRUE,   UNKNOWN,    /* 39 386 Shld,Shrd mem/reg,reg,imm byte */
-    4,  1, 13,  0,  TRUE,   UNKNOWN,    /* 40 386 Shld,Shrd mem/reg,reg,cl */
+    { 0,  0,  1,  0,  FALSE,  UNKNOWN },    /*  0 Math instructions (byte) M,reg */
+    { 0,  1,  1,  0,  FALSE,  UNKNOWN },    /*  1 Math instructions (word) M,reg (and ARPL) */
+    { 1,  0,  1,  0,  FALSE,  UNKNOWN },    /*  2 Math instructions (byte) reg,M */
+    { 1,  1,  1,  0,  FALSE,  UNKNOWN },    /*  3 Math instructions (word) reg,M */
+    { 0,  0,  5,  1,  TRUE,   UNKNOWN },    /*  4 Group 1 (math) byte */
+    { 0,  1,  6,  1,  TRUE,   UNKNOWN },    /*  5 Group 1 (math) word */
+    { 0,  1,  7,  1,  TRUE,   UNKNOWN },    /*  6 Group 1 (math) signed byte */
+    { 0,  1,  2,  0,  TRUE,   UNKNOWN },    /*  7 Segment register unloading */
+    { 1,  1,  2,  0,  TRUE,   UNKNOWN },    /*  8 Segment register loading */
+    { 1,  1,  1,  0,  FALSE,  UNKNOWN },    /*  9 LEA instruction */
+    { 2,  1,  0,  9,  FALSE,  UNKNOWN },    /* 10 POP mod 0 r/m instruction */
+    { 0,  0,  5,  2,  FALSE,  UNKNOWN },    /* 11 Group 2 (rotates) byte */
+    { 0,  1,  5,  2,  FALSE,  UNKNOWN },    /* 12 Group 2 (rotates) word */
+    { 0,  0,  3,  2,  TRUE,   UNKNOWN },    /* 13 Group 2 (rotates) byte by 1 */
+    { 0,  1,  3,  2,  TRUE,   UNKNOWN },    /* 14 Group 2 (rotates) word by 1 */
+    { 0,  0,  4,  2,  TRUE,   UNKNOWN },    /* 15 Group 2 (rotates) byte by CL */
+    { 0,  1,  4,  2,  TRUE,   UNKNOWN },    /* 16 Group 2 (rotates) word by CL */
+    { 1,  2,  1,  0,  FALSE,  UNKNOWN },    /* 17 LES,LDS,BOUND,LSS,LFS,LGS */
+    { 0,  0,  5, 10,  TRUE,   UNKNOWN },    /* 18 Move immediate (byte) */
+    { 0,  1,  6, 10,  TRUE,   UNKNOWN },    /* 19 Move immediate (word) */
+    { 2,  0,  0,  3,  FALSE,  UNKNOWN },    /* 20 Group 3 (special) byte */
+    { 2,  1,  0,  3,  FALSE,  UNKNOWN },    /* 21 Group 3 (special) word */
+    { 2,  0,  0,  4,  TRUE,   UNKNOWN },    /* 22 Group 4 (inc/dec) byte */
+    { 2,  1,  0,  5,  FALSE,  UNKNOWN },    /* 23 Group 5 (special) word/dword */
+    { 3,  1,  8,  0,  FALSE,  UNKNOWN },    /* 24 IMUL (3 parms [reg,mem,immed word]) */
+    { 3,  1,  9,  0,  FALSE,  UNKNOWN },    /* 25 IMUL (3 parms [reg,mem,immed signed byte]) */
+    { 2,  1,  0,  6,  FALSE,  UNKNOWN },    /* 26 Group 6 (special 286/386 instructions) */
+    { 2,  3,  0,  7,  TRUE,   FWORD_PTR },  /* 27 Group 7 (special 286/386 instructions) */
+    { 1,  1,  1,  0,  TRUE,   UNKNOWN },    /* 28 LAR,LSL reg,M (word) */
+    { 0,  0,  5,  8,  TRUE,   BYTE_PTR },   /* 29 Group 8 (386-bit) byte */
+    { 2,  0,  0,  0,  TRUE,   BYTE_PTR },   /* 30 386 Set cc Instructions */
+    { 0,  2, 10,  0,  FALSE,  UNKNOWN },    /* 31 386 Mov r32,crX */
+    { 1,  2, 10,  0,  FALSE,  UNKNOWN },    /* 32 386 Mov crX,r32 */
+    { 0,  2, 11,  0,  FALSE,  UNKNOWN },    /* 33 386 Mov r32,drX */
+    { 1,  2, 11,  0,  FALSE,  UNKNOWN },    /* 34 386 Mov drX,r32 */
+    { 0,  2, 12,  0,  FALSE,  UNKNOWN },    /* 35 386 Mov r32,trX */
+    { 1,  2, 12,  0,  FALSE,  UNKNOWN },    /* 36 386 Mov trX,r32 */
+    { 1,  1,  1,  0,  TRUE,   BYTE_PTR },   /* 37 386 Movsx, Movzx */
+    { 1,  1,  1,  0,  TRUE,   WORD_PTR },   /* 38 386 Movsx, Movzx */
+    { 4,  1,  9,  0,  TRUE,   UNKNOWN },    /* 39 386 Shld,Shrd mem/reg,reg,imm byte */
+    { 4,  1, 13,  0,  TRUE,   UNKNOWN },    /* 40 386 Shld,Shrd mem/reg,reg,cl */
 };
 
 
