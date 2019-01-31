@@ -8,9 +8,7 @@ int dat_compare( DAT_T *, DAT_T * );
 int data_seg_idx;
 dword data_offset;
 
-int dat_compare( rec_1, rec_2 )
-    DAT_T  *rec_1;
-    DAT_T  *rec_2;
+int dat_compare(DAT_T *rec_1,DAT_T *rec_2)
 {
     if ( rec_1->seg_idx > rec_2->seg_idx ) {
         return( LEFT );
@@ -55,19 +53,21 @@ void dat_insert( seg_idx, offset, file_pos, length, extended, type )
 
 void ledata(size_t length, int extension)
 {
-    SEG_T           seg_search;
-    SEG_T           *seg;
-    dword   offset;
-    long            position;
+    SEG_T seg_search;
+    SEG_T *seg;
+    uint32_t offset;
+    long position;
 
     position = o_position + length;     /* Position assumed at end of rec */
 
     length -= get_index( &seg_search.index );
+
     seg = (SEG_T *)find( (char *)&seg_search, segment_tree, TC seg_compare, NULL );
-    if ( seg == NULL ) fmt_error("Undefined segment" );
+
+    if ( seg == NULL ) fmt_error("Undefined segment\n");
 
     if ( extension == REGULAR ) {
-        offset = (dword)get_word(); /* Spot to begin within segment */
+        offset = get_word(); /* Spot to begin within segment */
         length -= 2;
     } else {
         offset = get_long();

@@ -524,7 +524,7 @@ int proc_fixup()
 }
 
 
-static void out_var(LOCAL_VAR*pVar)
+static void out_var(LOCAL_VAR *pVar)
 {
   char *p;
   char temp[50];
@@ -575,8 +575,7 @@ static void out_var(LOCAL_VAR*pVar)
 }
 
 
-int proc_normal( inst_proc )
-    int     inst_proc;
+int proc_normal(int inst_proc)
 {
     int      data_size;
     int      data;
@@ -795,9 +794,7 @@ int proc_normal( inst_proc )
     return( data_size );
 }
 
-void iterated( data_rec, next_rec )
-    DAT_T   *data_rec;
-    DAT_T   *next_rec;
+void iterated(DAT_T *data_rec, DAT_T *next_rec)
 {
     char            temp[20];
     word    length;
@@ -897,10 +894,7 @@ void iterated( data_rec, next_rec )
 }
 
 
-void enumerated( data_rec, next_rec, inst_proc )
-    DAT_T           *data_rec;
-    DAT_T           *next_rec;
-    int             inst_proc;
+void enumerated(DAT_T *data_rec, DAT_T *next_rec, int inst_proc)
 {
     int             length;
     int             result;
@@ -970,10 +964,7 @@ void enumerated( data_rec, next_rec, inst_proc )
     record_overused = addition - length;
 }
 
-void proc_drec( data_rec, next_rec, inst_proc )
-    DAT_T   *data_rec;
-    DAT_T   *next_rec;
-    int     inst_proc;
+void proc_drec(DAT_T *data_rec, DAT_T *next_rec, int inst_proc)
 {
     int     orgable;
 
@@ -1011,9 +1002,7 @@ void proc_drec( data_rec, next_rec, inst_proc )
 }
 
 
-NODE_T *list_sex( node, seg_num )
-    NODE_T  *node;
-    int     seg_num;
+NODE_T *list_sex(NODE_T *node, int seg_num)
 {
     SEX_T   *sex_rec;
     EXT_T   *ext_rec;
@@ -1185,7 +1174,7 @@ void process_segment(void)
 
 void process()
 {
-    NODE_T          *seg_node;
+    NODE_T *seg_node;
     char            text[80];
     int             dummy;
 

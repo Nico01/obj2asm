@@ -1,6 +1,8 @@
 #ifndef OBJ_O_H
 #define OBJ_O_H
 
+#include <stdio.h>
+
 #include "utils.h"
 #include "ouget.h"
 #include "omf_record.h"
@@ -191,7 +193,7 @@ typedef struct sex_s SEX_T;
 
 struct dat_s {                          /*- Structure of DATA records list -*/
     int             seg_idx;            /* Data records are kept in         */
-    dword   offset;             /*   segment index and offset order */
+    uint32_t        offset;             /*   segment index and offset order */
     int             type;               /* 0 = Enumerated, 1 = Iterated     */
     int             size;               /* Size of data (db,dw,dq, etc.)    */
     long            file_pos;           /* Position stored in .OBJ file     */
@@ -346,6 +348,16 @@ extern int      add_labels;         /* Invent new labels?            */
 extern int      hex_output;         /* Hex output in comments?       */
 extern int      over_seg;           /* -1 = No overiding segment yet */
 
+
+// t_tree.c
+NODE_T *new_tree(void *data_ptr, int dup_allowed);
+void init_trees(void);
+NODE_T *start(NODE_T *root_node, int direct);
+NODE_T *traverse(NODE_T *root_node, int direct);
+NODE_T *insert(void *data, NODE_T *root_node, int (*cmp_routine)(void *, void *));
+void *find(void *data, NODE_T *root_node, int (*cmp_routine)(void *, void *), NODE_T **node_ptr);
+
+
 int scope_compare( SCOPE_T*, SCOPE_T* );
 int linnum_compare( LINE_T *, LINE_T * );
 int name_compare( NAME_T *, NAME_T * );
@@ -378,8 +390,6 @@ void process( void );
 
 void load_extra( char *, char * );
 
-void init_trees( void );
-
 int size_to_type( int );
 int reg_size_to_type( int );
 int type_to_size( int );
@@ -407,11 +417,7 @@ void out_line( char *, char *, char *, char * );
 char *out_hexize( dword, char *, int );
 
 
-NODE_T *new_tree( void *, int );
-NODE_T *start( NODE_T *, int );
-NODE_T *traverse( NODE_T *, int );
-NODE_T *insert( void *, NODE_T *, int(*)(void *, void *) );
-void *find( void *, NODE_T *, int(*)(), NODE_T ** );
+
 char *search( char *, NODE_T *, int(*)() );
 void tab_seek( int );
 
