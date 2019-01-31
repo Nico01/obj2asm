@@ -390,11 +390,12 @@ void process( void );
 
 void load_extra( char *, char * );
 
-int size_to_type( int );
-int reg_size_to_type( int );
-int type_to_size( int );
-char *type_to_text( int );
-char *size_to_opcode( int, int * );
+// ousize.c
+int size_to_type(int size);
+int reg_size_to_type(int reg_size);
+int type_to_size(int type);
+char *type_to_text(int type);
+char *size_to_opcode(int size, int *times);
 
 void empty_string( int );
 
