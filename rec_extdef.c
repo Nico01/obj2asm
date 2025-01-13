@@ -27,7 +27,7 @@ void ext_insert( this_name, com_ext, var_type, count, size, scope )
     word    size;
     int             scope;
 {
-    static  extern_count = 0;
+    static  int extern_count = 0;
     EXT_T   *extern_rec;
 
     extern_count++;

@@ -23,7 +23,7 @@ int name_compare( rec_1, rec_2 )
 void name_insert( this_name )
     char    *this_name;
 {
-    static  name_count = 0;
+    static  int name_count = 0;
     NAME_T  *name_rec;
 
     name_count++;

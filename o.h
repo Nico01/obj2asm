@@ -354,8 +354,8 @@ NODE_T *new_tree(void *data_ptr, int dup_allowed);
 void init_trees(void);
 NODE_T *start(NODE_T *root_node, int direct);
 NODE_T *traverse(NODE_T *root_node, int direct);
-NODE_T *insert(void *data, NODE_T *root_node, int (*cmp_routine)(void *, void *));
-void *find(void *data, NODE_T *root_node, int (*cmp_routine)(void *, void *), NODE_T **node_ptr);
+NODE_T *insert(void *data, NODE_T *root_node, int (*cmp_routine)(const void *, const void *));
+void *find(void *data, NODE_T *root_node, int (*cmp_routine)(const void *, const void *), NODE_T **node_ptr);
 
 
 int scope_compare( SCOPE_T*, SCOPE_T* );
@@ -472,6 +472,6 @@ int esc          ( uchar, char *, int );
 int extra        ( uchar, char *, int );
 
 
-#define TC (int(*)(void*,void*)) /* *; */
+#define TC (int(*)(const void*,const void*)) /* *; */
 
 #endif // OBJ_O_H

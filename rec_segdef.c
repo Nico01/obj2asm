@@ -39,7 +39,7 @@ void seg_insert( name_idx, class, length, bit32, code )
     int     bit32;
     int     code;
 {
-    static  segment_count = 0;
+    static  int segment_count = 0;
     SEG_T   *segment_rec;
 
     segment_count++;

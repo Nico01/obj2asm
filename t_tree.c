@@ -171,7 +171,7 @@ static void swap(NODE_T *node_A, int direct_A, NODE_T *node_B, int direct_B)
     int    (*cmp_routine)(void*,void*); routine used to compare values at 2 nodes
 */
 
-NODE_T *insert(void *data, NODE_T *root_node, int (*cmp_routine)(void *, void *))
+NODE_T *insert(void *data, NODE_T *root_node, int (*cmp_routine)(const void *, const void *))
 {
     NODE_T *insert_node;
     NODE_T *curr_node; /* Current node we are visiting      */
@@ -322,7 +322,7 @@ NODE_T *insert(void *data, NODE_T *root_node, int (*cmp_routine)(void *, void *)
     NODE_T **node_ptr;                  Ptr to node found
 */
 
-void *find(void *data, NODE_T *root_node, int (*cmp_routine)(void *, void *), NODE_T **node_ptr)
+void *find(void *data, NODE_T *root_node, int (*cmp_routine)(const void *, const void *), NODE_T **node_ptr)
 {
     NODE_T *curr_node;
     int curr_direct;

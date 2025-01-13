@@ -34,7 +34,7 @@ int grp_compare( rec_1, rec_2 )
 void grp_insert( name_idx )
     int     name_idx;
 {
-    static  group_count = 0;
+    static  int group_count = 0;
     GRP_T   *group_rec;
 
     group_count++;

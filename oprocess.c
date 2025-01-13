@@ -707,12 +707,12 @@ int proc_normal(int inst_proc)
         */
         if ( !*hex_comment ) {
             Line.hex_offset = inst_offset;
-            pLine = find(&Line, line_tree, linnum_compare, NULL);
+            pLine = find(&Line, line_tree, TC linnum_compare, NULL);
             Scope.hex_offset = inst_offset+inst_length;
             if (pass==3) {
-              pScope = pEndScope = find(&Scope, end_scope_tree, scope_compare, &pNode);
-              pArgScope = find(&Scope, arg_scope_tree, scope_compare, NULL);
-              pLocScope = find(&Scope, loc_scope_tree, scope_compare, NULL);
+              pScope = pEndScope = find(&Scope, end_scope_tree, TC scope_compare, &pNode);
+              pArgScope = find(&Scope, arg_scope_tree, TC scope_compare, NULL);
+              pLocScope = find(&Scope, loc_scope_tree, TC scope_compare, NULL);
               while (pScope && pEndScope->hex_offset == pScope->hex_offset) {
                 out_comment("End of scope");
                 pScope = pNode->ptr[LEFT]->data;
